@@ -1,28 +1,19 @@
+from dataclasses import asdict
+
 import service as s
-from service import ContactInput, ContactOutput, UpdateContactInput
+from service import ContactInput
+import rest_api_boundary as r
 
-if __name__ == "__main__":
-    all_contacts: list[ContactOutput] = s.fetch_all_contacts()
-    print("All contacts:", all_contacts)
+from fastapi import FastAPI
 
-    new_contact: ContactOutput = s.add_contact(ContactInput("Adi Shamir", "7890", "adi@adi.com"))
-    print("New contact: ", new_contact)
+app = FastAPI()
 
-    filtered_contacts: list[ContactOutput] = s.search_contacts("Sha")
-    print("Search result: ", filtered_contacts)
-    filtered_contacts: list[ContactOutput] = s.search_contacts("7890")
-    print("Search result: ", filtered_contacts)
 
-    exported_contacts = s.export_contacts(None)
-    print("Export:", exported_contacts)
+@app.get("/contacts")
+def fetch_contacts() -> list[r.ContactOutput]:
+    return [r.ContactOutput(**asdict(contact)) for contact in s.fetch_all_contacts()]
 
-    updated_contact = s.update_contact(new_contact.id, UpdateContactInput(phone="0007890"))
-    print("Updated contact:", updated_contact)
 
-    import_contacts = s.import_contacts(exported_contacts)
-    print("Imported:", import_contacts)
-
-    s.import_selected_contacts([new_contact])
-    print("Imported selected:", s.fetch_all_contacts())
-
-    print("Deleted:", s.delete_contact(new_contact.id))
+@app.post("/contacts/add-contact")
+def add_contact(add_contact_input: r.ContactInput) -> r.ContactOutput:
+    return s.add_contact(ContactInput(**add_contact_input.dict()))

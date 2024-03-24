@@ -65,7 +65,37 @@ of this project. To switch to that branch, run the following command:
 ```bash
 git checkout rest-api
 ```
-The README file on the `rest-api` branch will contain instructions on how to run the project with the REST API layer.
+
+
+To add the REST API layer, I used the FastAPI library. I also used the `uvicorn` server to run the application.
+The library dependencies are specified in the `requirements.txt` file. To install them, run the following command:
+
+```bash
+pip install -r .\requirements.txt
+```
+
+The `main` file has been renamed to `main_text.py`. I created a new `main.py` file that contains the 
+FastAPI application. Since this is just a proof of concept, I only added two usecases, one to add a contact and the 
+other to fetch all the existing contacts.
+
+To run the FastAPI application, run the following command:
+
+```bash
+uvicorn main:app --reload
+```
+
+The server will start and you can access the application on `localhost` at `http://127.0.0.1:8000/`. 
+To access the documentation, go to `http://127.0.0.1:8000/docs`. The OpenAPI docs will allow you to try the endpoints
+directly from the browser.
+
+The rest api phase is complete. The next step is to containerize the application. This is implemented on another branch
+of this project. To switch to that branch, run the following command:
+
+```bash
+git checkout containerizing
+```
+
+The README file on the `containerizing` branch will contain instructions on how to run the project using Docker.
 
 License
 -------
