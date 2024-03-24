@@ -1,8 +1,8 @@
 from dataclasses import asdict
 
-import service as s
-from service import ContactInput
-import rest_api_boundary as r
+import app.service as s
+from app.service import ContactInput
+import app.rest_api_boundary as r
 
 from fastapi import FastAPI
 

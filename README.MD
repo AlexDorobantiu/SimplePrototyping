@@ -95,7 +95,29 @@ of this project. To switch to that branch, run the following command:
 git checkout containerizing
 ```
 
-The README file on the `containerizing` branch will contain instructions on how to run the project using Docker.
+To containerize the application, I used Docker. 
+You can install Docker Desktop from the [official website](https://www.docker.com/products/docker-desktop/).
+
+I moved the application files to a new Python package, so the `main.py` file is now in the `app` folder.
+
+The `Dockerfile` is a file present in the project, and describes the exact steps needed to make the application work.
+To build the Docker image with the steps in the Dockerfile, run the following command:
+
+```bash
+docker build -t simple-prototyping .
+```
+
+To run the Docker container, run the following command:
+
+```bash
+docker run -d -p 8000:80 simple-prototyping
+```
+
+To test that the project is running in a docker container, access the documentation at `http://127.0.0.1:8000/docs`.
+Keep in mind that the database is now stored in the container, so if you remove the container, you will lose the data.
+
+
+Congratulations, you have successfully completed the simple prototyping project.
 
 License
 -------

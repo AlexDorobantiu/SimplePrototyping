@@ -2,8 +2,8 @@ import json
 from dataclasses import asdict
 from typing import List, Optional
 
-import persistence as p
-from persistence import Contact
+import app.persistence as p
+from app.persistence import Contact
 from .contacts_service_boundary import ContactInput, ContactOutput, UpdateContactInput
 
 
